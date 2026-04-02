@@ -3,6 +3,7 @@ const { env } = require('../config/env');
 const { AppError } = require('../utils/appError');
 const { userModel } = require('../models/userModel');
 
+//middleawre for authetication
 async function requireAuth(req, res, next) {
   try {
     const header = req.headers.authorization;
