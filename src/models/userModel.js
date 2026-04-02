@@ -1,5 +1,7 @@
 const { query } = require('../config/db');
 
+
+//creating user model to insert user data in db 
 const userModel = {
   async create({ email, passwordHash, role, status }) {
     const result = await query(
@@ -37,6 +39,7 @@ const userModel = {
     return result.rows[0] || null;
   },
 
+  // using password_hash only when required(login) to avoid unneccsary exposing 
   async findAuthById(id) {
     const result = await query(
       `
