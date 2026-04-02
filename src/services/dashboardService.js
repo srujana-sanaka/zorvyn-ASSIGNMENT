@@ -1,8 +1,7 @@
 const { query } = require('../config/db');
-
+//calculate total both based on income and expense and find balance
 const dashboardService = {
   async getSummary({ recentLimit = 10 } = {}) {
-    // Keep round-trips low, but still readable. If you want ultra-optimized, pack into one big query.
     const totalsResult = await query(
       `
       SELECT
@@ -15,6 +14,7 @@ const dashboardService = {
     const totals = totalsResult.rows[0];
     const netBalance = Number(totals.total_income) - Number(totals.total_expenses);
 
+    //category(food,entertainment) and type(income, expense) based total
     const categoryTotalsResult = await query(
       `
       SELECT
@@ -26,7 +26,7 @@ const dashboardService = {
       ORDER BY category ASC, type ASC
       `
     );
-
+//get latest data 
     const recentResult = await query(
       `
       SELECT id, amount, type, category, date, notes, user_id, created_at
@@ -37,6 +37,7 @@ const dashboardService = {
       [recentLimit]
     );
 
+    // total money based on based on date
     const monthlyTrendsResult = await query(
       `
       SELECT
