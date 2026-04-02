@@ -2,6 +2,7 @@ const { Pool } = require('pg');
 const { env } = require('./env');
 const { logger } = require('../utils/logger');
 
+//creating a pool connection to the database
 const pool = new Pool(
   env.databaseUrl
     ? { connectionString: env.databaseUrl, ssl: env.nodeEnv === 'production' ? { rejectUnauthorized: false } : false }
@@ -19,6 +20,7 @@ pool.on('error', (err) => {
   logger.error('Unexpected PG pool error', { message: err.message });
 });
 
+// query the db
 async function query(text, params) {
   const startedAt = Date.now();
   const result = await pool.query(text, params);
