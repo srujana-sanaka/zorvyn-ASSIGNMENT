@@ -26,6 +26,7 @@ function buildWhere(filters, params) {
   return clauses.length ? `WHERE ${clauses.join(' AND ')}` : '';
 }
 
+//creating transaction model to insert values values
 const transactionModel = {
   async create({ amount, type, category, date, notes, userId }) {
     const result = await query(
@@ -39,6 +40,7 @@ const transactionModel = {
     return result.rows[0];
   },
 
+  //finding transaction by id(primary key)
   async findById(id) {
     const result = await query(
       `
@@ -51,6 +53,7 @@ const transactionModel = {
     return result.rows[0] || null;
   },
 
+  //updating transaction data of a user
   async update(id, { amount, type, category, date, notes }) {
     const result = await query(
       `
@@ -74,6 +77,8 @@ const transactionModel = {
     return result.rows[0] || null;
   },
 
+
+ // Fetches a filtered + paginated list of transactions Also joins user data (email)
   async list(filters, { limit = 50, offset = 0 } = {}) {
     const params = [];
     const where = buildWhere(filters || {}, params);
