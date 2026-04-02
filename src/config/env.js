@@ -1,9 +1,10 @@
 const path = require('path');
 const dotenv = require('dotenv');
 
-// Loads .env from project root. In production, environment variables are usually injected by the platform.
+// Loads env variables from current working directory
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
+// handles any missing env values from .env
 function requireEnv(name) {
   const value = process.env[name];
   if (!value) {
@@ -12,6 +13,7 @@ function requireEnv(name) {
   return value;
 }
 
+//loading the env variabls stored in .env
 const env = {
   nodeEnv: process.env.NODE_ENV || 'development',
   port: Number(process.env.PORT || 4000),
