@@ -2,6 +2,17 @@
 
 Express + PostgreSQL backend with JWT auth, role-based access control, financial transactions, and dashboard analytics.
 
+## Documentation (what to submit)
+
+“Documentation” in most rubrics means **clear written instructions and API description**, not necessarily a Microsoft Word file. Unless your assignment explicitly asks for `.docx` or PDF, **Markdown in the repo is standard**: GitHub and GitLab render it, and reviewers expect a **README** plus a dedicated API reference.
+
+In this project:
+
+- **README.md** (this file) — setup, roles, endpoint list, deployment, assumptions, tradeoffs.
+- **docs/API.md** — full HTTP reference (methods, bodies, query params, status codes, examples).
+
+If the brief requires Word, copy these sections into one document or export from your editor.
+
 ## Tech stack
 - Node.js + Express
 - PostgreSQL
@@ -23,6 +34,8 @@ src/
   server.js
 sql/
   schema.sql
+docs/
+  API.md
 ```
 
 ## Setup (local)
@@ -33,7 +46,7 @@ npm install
 ```
 
 ### 2) Configure environment
-Create a `.env` file in the project root (copy from `.env.example`).
+Create a `.env` file in the project root. Copy the sample file in the repo (e.g. `.env.example` or `.ENV.EXAMPLE` — same idea, different casing) and fill in real values. Never commit `.env`.
 
 ### 3) Create database + schema
 Create a database (example: `finance_db`) and run:
@@ -58,6 +71,23 @@ Health check:
 Notes:
 - `/api/auth/register` creates an **active viewer** by default (simple internship-friendly flow).
 - Admin can create users with roles and status via `/api/users`.
+
+**Detailed API doc:** [docs/API.md](docs/API.md)
+
+## Assumptions
+
+- **First admin:** There is no public “register as admin” endpoint. Self-registration creates a **viewer**. The first admin is created by promoting a user in SQL (`UPDATE users SET role = 'admin' WHERE email = '...'`) or by seeding a user in the database. That keeps the assignment small and avoids open admin signup.
+- **JWT:** Tokens encode a subject (`sub` = user id). Role and status are loaded from the database on each authenticated request, so role changes apply without issuing a new token (until you want to force re-login for other reasons).
+- **Transactions:** `user_id` is the owning user (audit / attribution). Admins can optionally set `user_id` when creating a row; otherwise it defaults to the admin’s id.
+- **Dashboard:** Aggregates are global (all transactions in the table), not scoped per user, unless you extend the queries later.
+
+## Tradeoffs and design choices
+
+- **Layering:** Routes stay thin; controllers orchestrate; services hold business rules; models run SQL. That’s a bit more files than a single `server.js`, but it scales better and matches how teams structure Express apps.
+- **bcryptjs vs bcrypt:** `bcryptjs` is pure JavaScript (easy install on Windows). Slightly slower than native `bcrypt`; fine for an assignment and small traffic.
+- **Dashboard SQL:** Summary uses a few focused queries instead of one huge SQL statement — easier to read and tune; one more round-trip to the database than a single mega-query.
+- **Production SSL for Postgres:** When `DATABASE_URL` is used and `NODE_ENV=production`, the pool enables SSL with `rejectUnauthorized: false` so managed Postgres (Render, etc.) works without extra CA setup. Stricter setups would pin a CA certificate.
+- **Validation:** `express-validator` keeps validation next to routes; alternative is a schema library (e.g. Zod) for shared types between layers.
 
 ## API documentation (endpoints)
 
