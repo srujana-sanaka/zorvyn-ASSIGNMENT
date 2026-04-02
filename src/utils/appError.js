@@ -6,5 +6,5 @@ class AppError extends Error {
     this.details = details;
   }
 }
-
+// AppError lets you throw structured errors with message, status code, and details
 module.exports = { AppError };
