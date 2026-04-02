@@ -2,16 +2,6 @@
 
 Express + PostgreSQL backend with JWT auth, role-based access control, financial transactions, and dashboard analytics.
 
-## Documentation (what to submit)
-
-“Documentation” in most rubrics means **clear written instructions and API description**, not necessarily a Microsoft Word file. Unless your assignment explicitly asks for `.docx` or PDF, **Markdown in the repo is standard**: GitHub and GitLab render it, and reviewers expect a **README** plus a dedicated API reference.
-
-In this project:
-
-- **README.md** (this file) — setup, roles, endpoint list, deployment, assumptions, tradeoffs.
-- **docs/API.md** — full HTTP reference (methods, bodies, query params, status codes, examples).
-
-If the brief requires Word, copy these sections into one document or export from your editor.
 
 ## Tech stack
 - Node.js + Express
