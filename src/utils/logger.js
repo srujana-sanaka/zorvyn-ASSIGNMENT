@@ -1,3 +1,4 @@
+//This logger prints timestamped messages with optional extra data in a clean format
 function serializeMeta(meta) {
   if (!meta) return '';
   try {

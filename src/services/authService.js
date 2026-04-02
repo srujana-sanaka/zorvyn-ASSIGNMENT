@@ -7,6 +7,7 @@ const { AppError } = require('../utils/appError');
 const DEFAULT_REGISTER_ROLE = 'viewer';
 const DEFAULT_REGISTER_STATUS = 'active';
 
+//creates a header token that represents logged in user
 function signToken(userId) {
   return jwt.sign({ sub: userId }, env.jwt.secret, { expiresIn: env.jwt.expiresIn });
 }

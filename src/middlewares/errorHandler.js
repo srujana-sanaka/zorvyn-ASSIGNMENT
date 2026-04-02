@@ -1,7 +1,7 @@
 const { AppError } = require('../utils/appError');
 const { env } = require('../config/env');
 const { logger } = require('../utils/logger');
-
+//handling of errors 
 function errorHandler(err, req, res, next) {
   const statusCode = err.statusCode || 500;
 

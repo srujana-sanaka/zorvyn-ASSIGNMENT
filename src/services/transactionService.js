@@ -1,6 +1,7 @@
 const { transactionModel } = require('../models/transactionModel');
 const { AppError } = require('../utils/appError');
 
+//manage transaction models using transactionModel(create, update,remove,list)
 const transactionService = {
   async createTransaction(input) {
     return transactionModel.create(input);
