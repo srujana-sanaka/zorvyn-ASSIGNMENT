@@ -1,7 +1,6 @@
 const path = require('path');
 const dotenv = require('dotenv');
 
-<<<<<<< HEAD
 // Pointing to the .env file from current working directory
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
