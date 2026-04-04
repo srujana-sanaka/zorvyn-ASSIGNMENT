@@ -26,6 +26,8 @@ sql/
   schema.sql
 docs/
   API.md
+  DEPLOY_RENDER.md
+
 ```
 
 ## Setup (local)
@@ -113,5 +115,11 @@ Notes:
 - **GET** `/api/dashboard/summary`
   - Roles: `admin`, `analyst`, `viewer`
   - Query: `recentLimit=10`
+
+
+## Deploy on Render
+
+See **[docs/DEPLOY_RENDER.md](docs/DEPLOY_RENDER.md)** for PostgreSQL + Web Service, env vars, running `sql/schema.sql`, and what to paste in the assignment “Live Demo or API URL” field (`https://<your-app>.onrender.com`).
+
 
 
