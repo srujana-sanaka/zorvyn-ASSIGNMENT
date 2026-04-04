@@ -5,13 +5,8 @@ const dotenv = require('dotenv');
 // Pointing to the .env file from current working directory
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
-// function to check is env variables or set or not if not then throw an error
-=======
-// Loads env variables from current working directory
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
-// handles any missing env values from .env
->>>>>>> ea8890f2725674d80a8218afd314323ced32fa5b
 function requireEnv(name) {
   const value = process.env[name];
   if (!value) {
@@ -20,11 +15,6 @@ function requireEnv(name) {
   return value;
 }
 
-<<<<<<< HEAD
-// object to store all env variables
-=======
-//loading the env variabls stored in .env
->>>>>>> ea8890f2725674d80a8218afd314323ced32fa5b
 const env = {
   nodeEnv: process.env.NODE_ENV || 'development',
   port: Number(process.env.PORT || 4000),
