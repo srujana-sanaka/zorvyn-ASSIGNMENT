@@ -30,6 +30,15 @@ function createApp() {
   // Lightweight request logging. In production you may want JSON logs instead.
   app.use(morgan(env.nodeEnv === 'production' ? 'combined' : 'dev'));
 
+  
+// Root — browsers hit `/` first; real routes live under `/health` and `/api/*`.
+  app.get('/', (req, res) => {
+    res.json({
+      name: 'Finance Data & Access Control API',
+      health: '/health',
+      api: { auth: '/api/auth', users: '/api/users', transactions: '/api/transactions', dashboard: '/api/dashboard/summary' }
+    });
+  });
   app.get('/health', (req, res) => {
     res.json({ ok: true, env: env.nodeEnv });
   });
