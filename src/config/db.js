@@ -28,7 +28,8 @@ async function query(text, params) {
   const result = await pool.query(text, params);
   const durationMs = Date.now() - startedAt;
 
-  if (env.nodeEnv !== 'production' && durationMs > 200) {
+  if (env.nodeEnv !== 'production' && durationMs > 200 ||
+  (env.nodeEnv === 'production' && durationMs > 1000)) {
     logger.warn('Slow query', { durationMs, rows: result.rowCount });
   }
 
